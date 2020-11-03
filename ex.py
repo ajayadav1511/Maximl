@@ -42,7 +42,7 @@ def smallesteSubstr_maxDistictChar(str):
 if __name__ == "__main__": 
 	
 	# Input String 
-	str = "AABBBCBB"
+	str = "abcda"
 	
 	l = smallesteSubstr_maxDistictChar(str) 
 	print( "The length of the smallest substring", "consisting of maximum distinct","characters =", l) 
