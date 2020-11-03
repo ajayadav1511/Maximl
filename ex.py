@@ -1,49 +1,33 @@
- 
-NO_OF_CHARS = 256
+# Time Complexity - O(N)
+# Space Complexity - O(N)
 
+from collections import defaultdict 
 
-def max_distinct_char(str, n): 
+def findSubString(strr): 
+	n = len(strr) 
+	dist_count = len(set([x for x in strr])) 
+	curr_count = defaultdict(lambda: 0) 
+	count = 0
+	start = 0
+	min_len = n 
+	for j in range(n): 
+		curr_count[strr[j]] += 1
+		if curr_count[strr[j]] == 1: 
+			count += 1
 
-	
-	count = [0] * NO_OF_CHARS 
-	
+		if count == dist_count: 
+			while curr_count[strr[start]] > 1: 
+				if curr_count[strr[start]] > 1: 
+					curr_count[strr[start]] -= 1
+					
+				start += 1
 
-	for i in range(n): 
-		count[ord(str[i])] += 1
-	
-	max_distinct = 0
-	for i in range(NO_OF_CHARS): 
-		if (count[i] != 0): 
-			max_distinct += 1	
-	
-	return max_distinct 
+			len_window = j - start + 1
+			if min_len > len_window: 
+				min_len = len_window 
+				start_index = start 
 
-def smallesteSubstr_maxDistictChar(str): 
-
-	n = len(str)
-	max_distinct = max_distinct_char(str, n) 
-	minl = n	 
-	
-	
-	for i in range(n): 
-		for j in range(n): 
-			subs = str[i:j] 
-			subs_lenght = len(subs) 
-			sub_distinct_char = max_distinct_char(subs,subs_lenght) 
-			
-			
-			if (subs_lenght < minl and
-				max_distinct == sub_distinct_char): 
-				minl = subs_lenght 
-
-	return minl 
-
-
-if __name__ == "__main__": 
-	
-	# Input String 
-	str = "abcda"
-	
-	l = smallesteSubstr_maxDistictChar(str) 
-	print( "The length of the smallest substring", "consisting of maximum distinct","characters =", l) 
-
+	return len(str(strr[start_index: start_index + min_len])) 
+								
+s = input()
+print(findSubString(s))
